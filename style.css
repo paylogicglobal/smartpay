@@ -1,0 +1,37 @@
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  background-color: #0b0c10;
+  color: #ffffff;
+}
+header {
+  background-color: #1f2833;
+  padding: 2rem;
+  text-align: center;
+}
+header h1 {
+  margin: 0;
+  font-size: 2.5rem;
+}
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 2rem;
+}
+.gallery img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  transition: transform 0.3s ease;
+}
+.gallery img:hover {
+  transform: scale(1.05);
+}
+footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: #1f2833;
+  font-size: 0.9rem;
+}
