@@ -1,58 +1,517 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ms">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PayLogicGlobal – Smart Payroll System</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="icon" href="logo.png" type="image/png" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Payroll - PayLogic-Global</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #d4af37;
+            --dark: #1e293b;
+            --light: #f8fafc;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #f0f5ff;
+            color: var(--dark);
+            line-height: 1.6;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        header h1 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        .tabs {
+            display: flex;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        .tab {
+            padding: 15px 30px;
+            cursor: pointer;
+            font-weight: 600;
+            border-bottom: 3px solid transparent;
+        }
+        .tab.active {
+            border-bottom: 3px solid var(--primary);
+            color: var(--primary);
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        button:hover {
+            background: #1d4ed8;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+        }
+        th, td {
+            border: 1px solid #e2e8f0;
+            padding: 15px;
+            text-align: left;
+        }
+        th {
+            background-color: #f1f5f9;
+            font-weight: 600;
+        }
+        .slip-container {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            max-width: 800px;
+            margin: 30px auto;
+        }
+        .slip-header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 20px;
+        }
+        .slip-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #e2e8f0;
+        }
+        .total-row {
+            font-weight: 700;
+            font-size: 18px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid var(--dark);
+        }
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        .print-btn {
+            background: var(--secondary);
+        }
+    </style>
 </head>
 <body>
-  <header class="hero">
-    <img src="logo.png" alt="PayLogic Logo" class="logo" />
-    <h1>PayLogicGlobal</h1>
-    <p>Your smart & international payroll solution.</p>
-    <a href="#contact" class="btn">Request Demo</a>
-  </header>
-
-  <nav class="menu">
-    <a href="#features">Features</a>
-    <a href="#pricing">Pricing</a>
-    <a href="#contact">Contact</a>
-  </nav>
-
-  <section id="features" class="features">
-    <h2>Powerful Features</h2>
-    <ul>
-      <li>✅ Auto OT & public holiday calculation</li>
-      <li>✅ PDF Payslip with company logo</li>
-      <li>✅ Google Sheets Integration</li>
-      <li>✅ White-label & multilingual</li>
-      <li>✅ AI Assistant (LYRA) built-in</li>
-    </ul>
-  </section>
-
-  <section id="pricing" class="pricing">
-    <h2>Plans & Pricing</h2>
-    <div class="card">
-      <h3>Starter</h3>
-      <p>$29/month</p>
-      <p>For small teams</p>
+    <div class="container">
+        <header>
+            <h1>💼 Sistem Payroll PayLogic-Global</h1>
+            <p>Sistem lengkap pengurusan gaji untuk perniagaan anda</p>
+        </header>
+        
+        <div class="tabs">
+            <div class="tab active" data-tab="staff">👥 Daftar Pekerja</div>
+            <div class="tab" data-tab="payroll">💰 Pengiraan Gaji</div>
+            <div class="tab" data-tab="history">📋 Rekod Sejarah</div>
+        </div>
+        
+        <!-- Tab 1: Daftar Pekerja -->
+        <div class="tab-content active" id="staff-tab">
+            <h2>📝 Daftar Pekerja Baru</h2>
+            <div class="form-group">
+                <label for="nama">Nama Penuh</label>
+                <input type="text" id="nama" placeholder="Ali bin Ahmad">
+            </div>
+            <div class="form-group">
+                <label for="jawatan">Jawatan</label>
+                <input type="text" id="jawatan" placeholder="Pengurus">
+            </div>
+            <div class="form-group">
+                <label for="gaji">Gaji Asas (RM)</label>
+                <input type="number" id="gaji" placeholder="3000">
+            </div>
+            <button onclick="tambahPekerja()">
+                <span>➕</span> Tambah Pekerja
+            </button>
+            
+            <h2 style="margin-top: 40px;">👥 Senarai Pekerja</h2>
+            <table id="staff-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nama</th>
+                        <th>Jawatan</th>
+                        <th>Gaji Asas (RM)</th>
+                        <th>Tindakan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Data pekerja akan diisi oleh JavaScript -->
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Tab 2: Pengiraan Gaji -->
+        <div class="tab-content" id="payroll-tab">
+            <h2>🧮 Pengiraan Gaji Bulanan</h2>
+            <div class="form-group">
+                <label for="bulan">Bulan</label>
+                <select id="bulan">
+                    <option value="Januari">Januari</option>
+                    <option value="Februari">Februari</option>
+                    <option value="Mac">Mac</option>
+                    <option value="April">April</option>
+                    <option value="Mei">Mei</option>
+                    <option value="Jun">Jun</option>
+                    <option value="Julai">Julai</option>
+                    <option value="Ogos">Ogos</option>
+                    <option value="September">September</option>
+                    <option value="Oktober">Oktober</option>
+                    <option value="November">November</option>
+                    <option value="Disember">Disember</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="tahun">Tahun</label>
+                <input type="number" id="tahun" value="2025">
+            </div>
+            
+            <div class="form-group">
+                <label for="pekerja">Pilih Pekerja</label>
+                <select id="pekerja"></select>
+            </div>
+            
+            <div class="form-group">
+                <label for="hari-kerja">Hari Kerja (daripada 26 hari)</label>
+                <input type="number" id="hari-kerja" value="26">
+            </div>
+            
+            <div class="form-group">
+                <label for="lebih-masa">Jam Lebih Masa</label>
+                <input type="number" id="lebih-masa" value="0">
+            </div>
+            
+            <button onclick="kiraGaji()">
+                <span>🧮</span> Kira Gaji
+            </button>
+            
+            <div id="slip-gaji" style="display: none;">
+                <!-- Slip gaji akan diisi oleh JavaScript -->
+            </div>
+        </div>
+        
+        <!-- Tab 3: Rekod Sejarah -->
+        <div class="tab-content" id="history-tab">
+            <h2>📋 Rekod Pembayaran Gaji</h2>
+            <table id="history-table">
+                <thead>
+                    <tr>
+                        <th>Bulan/Tahun</th>
+                        <th>Nama Pekerja</th>
+                        <th>Gaji Asas (RM)</th>
+                        <th>Gaji Bersih (RM)</th>
+                        <th>Tarikh</th>
+                        <th>Tindakan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Data sejarah akan diisi oleh JavaScript -->
+                </tbody>
+            </table>
+        </div>
     </div>
-    <div class="card">
-      <h3>Business</h3>
-      <p>$59/month</p>
-      <p>For growing companies</p>
-    </div>
-  </section>
 
-  <section id="contact" class="contact">
-    <h2>Contact Us</h2>
-    <p>Email: <a href="mailto:paylogicglobal@gmail.com">paylogicglobal@gmail.com</a></p>
-  </section>
-
-  <footer>
-    <p>&copy; 2025 PayLogicGlobal. All rights reserved.</p>
-  </footer>
+    <script>
+        // Data Storage
+        let pekerja = JSON.parse(localStorage.getItem('payroll_pekerja')) || [];
+        let sejarah = JSON.parse(localStorage.getItem('payroll_sejarah')) || [];
+        
+        // Tab Navigation
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                tab.classList.add('active');
+                document.getElementById(`${tab.dataset.tab}-tab`).classList.add('active');
+                
+                if(tab.dataset.tab === 'payroll') {
+                    isiDropdownPekerja();
+                } else if(tab.dataset.tab === 'history') {
+                    paparRekodSejarah();
+                }
+            });
+        });
+        
+        // Fungsi Utama
+        function tambahPekerja() {
+            const nama = document.getElementById('nama').value;
+            const jawatan = document.getElementById('jawatan').value;
+            const gaji = parseFloat(document.getElementById('gaji').value);
+            
+            if(!nama || !jawatan || isNaN(gaji)) {
+                alert('Sila isi semua maklumat pekerja');
+                return;
+            }
+            
+            const pekerjaBaru = {
+                id: Date.now(),
+                nama,
+                jawatan,
+                gaji
+            };
+            
+            pekerja.push(pekerjaBaru);
+            localStorage.setItem('payroll_pekerja', JSON.stringify(pekerja));
+            paparSenaraiPekerja();
+            
+            // Reset form
+            document.getElementById('nama').value = '';
+            document.getElementById('jawatan').value = '';
+            document.getElementById('gaji').value = '';
+        }
+        
+        function paparSenaraiPekerja() {
+            const tbody = document.querySelector('#staff-table tbody');
+            tbody.innerHTML = '';
+            
+            pekerja.forEach(p => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${p.id}</td>
+                    <td>${p.nama}</td>
+                    <td>${p.jawatan}</td>
+                    <td>${p.gaji.toFixed(2)}</td>
+                    <td>
+                        <button onclick="padamPekerja(${p.id})" style="background:#ef4444;padding:8px 15px;">
+                            🗑️ Padam
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+        
+        function padamPekerja(id) {
+            if(confirm('Adakah anda pasti ingin padam pekerja ini?')) {
+                pekerja = pekerja.filter(p => p.id !== id);
+                localStorage.setItem('payroll_pekerja', JSON.stringify(pekerja));
+                paparSenaraiPekerja();
+            }
+        }
+        
+        function isiDropdownPekerja() {
+            const dropdown = document.getElementById('pekerja');
+            dropdown.innerHTML = '';
+            
+            pekerja.forEach(p => {
+                const option = document.createElement('option');
+                option.value = p.id;
+                option.textContent = `${p.nama} (${p.jawatan})`;
+                dropdown.appendChild(option);
+            });
+        }
+        
+        function kiraGaji() {
+            const pekerjaId = parseInt(document.getElementById('pekerja').value);
+            const bulan = document.getElementById('bulan').value;
+            const tahun = document.getElementById('tahun').value;
+            const hariKerja = parseInt(document.getElementById('hari-kerja').value);
+            const lebihMasa = parseInt(document.getElementById('lebih-masa').value);
+            
+            const pekerjaData = pekerja.find(p => p.id === pekerjaId);
+            
+            if(!pekerjaData) {
+                alert('Sila pilih pekerja');
+                return;
+            }
+            
+            // Kira gaji
+            const gajiAsas = pekerjaData.gaji;
+            const gajiHarian = gajiAsas / 26;
+            const potonganCuti = (26 - hariKerja) * gajiHarian;
+            const gajiSejam = gajiHarian / 8;
+            const bayaranLebihMasa = lebihMasa * gajiSejam * 1.5;
+            
+            // Potongan (contoh kadar)
+            const epf = gajiAsas * 0.11; // 11% EPF
+            const socso = gajiAsas * 0.005; // 0.5% SOCSO
+            const pcb = gajiAsas > 4000 ? gajiAsas * 0.03 : 0; // 3% PCB jika gaji > 4000
+            
+            const gajiKasar = gajiAsas + bayaranLebihMasa - potonganCuti;
+            const gajiBersih = gajiKasar - epf - socso - pcb;
+            
+            // Papar slip gaji
+            const slipContainer = document.getElementById('slip-gaji');
+            slipContainer.style.display = 'block';
+            slipContainer.innerHTML = `
+                <div class="slip-container">
+                    <div class="slip-header">
+                        <h2>SLIP GAJI - ${bulan} ${tahun}</h2>
+                        <h3>PayLogic-Global Payroll System</h3>
+                    </div>
+                    
+                    <div class="slip-row">
+                        <div>Nama:</div>
+                        <div><strong>${pekerjaData.nama}</strong></div>
+                    </div>
+                    
+                    <div class="slip-row">
+                        <div>Jawatan:</div>
+                        <div>${pekerjaData.jawatan}</div>
+                    </div>
+                    
+                    <div class="slip-row">
+                        <div>Gaji Asas:</div>
+                        <div>RM ${gajiAsas.toFixed(2)}</div>
+                    </div>
+                    
+                    <div class="slip-row">
+                        <div>Lebih Masa (${lebihMasa} jam):</div>
+                        <div>+ RM ${bayaranLebihMasa.toFixed(2)}</div>
+                    </div>
+                    
+                    <div class="slip-row">
+                        <div>Potongan Cuti (${26 - hariKerja} hari):</div>
+                        <div>- RM ${potonganCuti.toFixed(2)}</div>
+                    </div>
+                    
+                    <h3 style="margin: 20px 0 10px;">Potongan</h3>
+                    
+                    <div class="slip-row">
+                        <div>KWSP (EPF) 11%:</div>
+                        <div>- RM ${epf.toFixed(2)}</div>
+                    </div>
+                    
+                    <div class="slip-row">
+                        <div>PERKESO (SOCSO) 0.5%:</div>
+                        <div>- RM ${socso.toFixed(2)}</div>
+                    </div>
+                    
+                    <div class="slip-row">
+                        <div>PCB (Potongan Cukai Bulanan):</div>
+                        <div>- RM ${pcb.toFixed(2)}</div>
+                    </div>
+                    
+                    <div class="slip-row total-row">
+                        <div>JUMLAH BERSIH:</div>
+                        <div>RM ${gajiBersih.toFixed(2)}</div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="print-btn" onclick="cetakSlip()">
+                            🖨️ Cetak Slip
+                        </button>
+                        <button onclick="simpanRekod()">
+                            💾 Simpan Rekod
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function cetakSlip() {
+            window.print();
+        }
+        
+        function simpanRekod() {
+            const pekerjaId = parseInt(document.getElementById('pekerja').value);
+            const bulan = document.getElementById('bulan').value;
+            const tahun = document.getElementById('tahun').value;
+            
+            const pekerjaData = pekerja.find(p => p.id === pekerjaId);
+            const gajiBersih = parseFloat(document.querySelector('.total-row div:last-child').textContent.replace('RM ', ''));
+            
+            const rekod = {
+                id: Date.now(),
+                pekerjaId,
+                nama: pekerjaData.nama,
+                bulan: `${bulan} ${tahun}`,
+                gajiAsas: pekerjaData.gaji,
+                gajiBersih,
+                tarikh: new Date().toLocaleDateString('ms-MY')
+            };
+            
+            sejarah.push(rekod);
+            localStorage.setItem('payroll_sejarah', JSON.stringify(sejarah));
+            alert('Rekod gaji berjaya disimpan!');
+        }
+        
+        function paparRekodSejarah() {
+            const tbody = document.querySelector('#history-table tbody');
+            tbody.innerHTML = '';
+            
+            sejarah.forEach(r => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${r.bulan}</td>
+                    <td>${r.nama}</td>
+                    <td>${r.gajiAsas.toFixed(2)}</td>
+                    <td>${r.gajiBersih.toFixed(2)}</td>
+                    <td>${r.tarikh}</td>
+                    <td>
+                        <button onclick="cetakSemula(${r.id})" style="padding:8px 15px;">
+                            🖨️ Cetak
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+        
+        function cetakSemula(id) {
+            const rekod = sejarah.find(r => r.id === id);
+            if(rekod) {
+                alert(`Cetak slip gaji untuk ${rekod.nama} (${rekod.bulan})`);
+                // Di sini anda boleh implementasi fungsi cetak sebenar
+            }
+        }
+        
+        // Initialize
+        paparSenaraiPekerja();
+    </script>
 </body>
 </html>
