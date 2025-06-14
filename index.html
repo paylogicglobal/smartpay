@@ -1,56 +1,85 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PayLogicGlobal – Smart Payroll System</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: #f9f9f9;
+      color: #222;
+    }
+    header {
+      background-color: #003366;
+      color: #fff;
+      padding: 40px 20px;
+      text-align: center;
+    }
+    nav {
+      background-color: #002244;
+      display: flex;
+      justify-content: center;
+      padding: 10px 0;
+    }
+    nav a {
+      color: white;
+      margin: 0 20px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .section {
+      padding: 40px 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+    .features ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    .features li::before {
+      content: '✔️';
+      margin-right: 10px;
+    }
+    .plans {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .card {
+      background: #fff;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      width: 250px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    footer {
+      background: #003366;
+      color: #fff;
+      text-align: center;
+      padding: 20px 10px;
+      margin-top: 40px;
+    }
+  </style>
 </head>
 <body>
-  <header class="hero">
-    <div class="lang-switch">
-      <button onclick="setLanguage('en')">🇬🇧 English</button>
-      <button onclick="setLanguage('bm')">🇲🇾 BM</button>
-    </div>
-    <h1 id="title">PayLogicGlobal</h1>
-    <p id="subtitle">Your smart & international payroll solution.</p>
-    <a href="#contact" class="btn" id="demoBtn">Request Demo</a>
-  </header>
-
-  <section class="features">
-    <h2 id="featuresTitle">Powerful Features</h2>
+  <header>
+    <h1>PayLogicGlobal</h1>
+    <p>Your smart & international payroll automation platform.</p>
+  </header>  <nav>
+    <a href="#home">Home</a>
+    <a href="#features">Features</a>
+    <a href="#plans">Plans</a>
+    <a href="#contact">Contact</a>
+  </nav>  <section id="home" class="section">
+    <h2>Welcome to PayLogicGlobal</h2>
+    <p>PayLogicGlobal provides an intelligent payroll solution built for businesses worldwide. Whether you need smart OT calculation, automated payslip generation, or white-label payroll systems – we deliver scalable, cloud-based solutions tailored for modern HR operations.</p>
+  </section>  <section id="features" class="section features">
+    <h2>Key Features & Services</h2>
     <ul>
-      <li id="f1">✅ Auto OT & public holiday calculation</li>
-      <li id="f2">✅ PDF Payslip with company logo</li>
-      <li id="f3">✅ Google Sheets Integration</li>
-      <li id="f4">✅ White-label & multilingual</li>
-      <li id="f5">✅ AI Assistant (LYRA) built-in</li>
-    </ul>
-  </section>
-
-  <section class="pricing">
-    <h2 id="pricingTitle">Plans & Pricing</h2>
-    <div class="card">
-      <h3 id="starter">Starter</h3>
-      <p>$29/month</p>
-      <p id="starterDesc">For small teams</p>
-    </div>
-    <div class="card">
-      <h3 id="business">Business</h3>
-      <p>$59/month</p>
-      <p id="businessDesc">For growing companies</p>
-    </div>
-  </section>
-
-  <section id="contact" class="contact">
-    <h2 id="contactTitle">Contact Us</h2>
-    <p>Email: <a href="mailto:paylogicglobal@gmail.com">paylogicglobal@gmail.com</a></p>
-  </section>
-
-  <footer>
-    <p>&copy; 2025 PayLogicGlobal. All rights reserved.</p>
-  </footer>
-
-  <script src="lang.js"></script>
-</body>
-</html>
+      <li>Auto Overtime & Public Holiday Calculation</li>
+      <li>PDF Payslip with Company Branding</li>
+      <li>Google Sheets Integration</
