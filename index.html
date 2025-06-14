@@ -1,67 +1,315 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ms">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PayLogicGlobal – Smart Payroll System</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Payroll - PayLogic-Global</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        h1, h2 {
+            color: #2563eb;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #1d4ed8;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #2563eb;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f9fafb;
+        }
+        .slip-gaji {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.3);
+            z-index: 1000;
+            width: 90%;
+            max-width: 500px;
+        }
+        .slip-gaji.active {
+            display: block;
+        }
+        .slip-gaji h3 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+        }
+        .overlay.active {
+            display: block;
+        }
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-
-  <!-- Header -->
-  <header class="hero">
-    <img src="images/paylogic-logo.png" alt="PayLogic Global Logo" />
-    <h1>PayLogicGlobal</h1>
-    <p>Your smart & international payroll solution</p>
-    <a href="#contact" class="btn">Request Demo</a>
-  </header>
-
-  <!-- Navigation Menu -->
-  <nav>
-    <a href="#home">Home</a>
-    <a href="#features">Features</a>
-    <a href="#pricing">Pricing</a>
-    <a href="#contact">Contact</a>
-  </nav>
-
-  <!-- Features Section -->
-  <section id="features" class="features">
-    <h2>What We Offer</h2>
-    <ul>
-      <li>✅ Auto OT & public holiday calculation</li>
-      <li>✅ PDF Payslip with company logo</li>
-      <li>✅ Google Sheets Integration</li>
-      <li>✅ White-label option & multilingual support</li>
-      <li>✅ AI Assistant (LYRA) built-in</li>
-    </ul>
-  </section>
-
-  <!-- Pricing Section -->
-  <section id="pricing" class="pricing">
-    <h2>Plans & Pricing</h2>
-    <div class="card">
-      <h3>Starter</h3>
-      <p>$29/month</p>
-      <p>Perfect for freelancers & small teams</p>
+    <div class="container">
+        <h1>✏️ Sistem Pengurusan Payroll</h1>
+        
+        <!-- Borang Tambah Pekerja -->
+        <div class="form-group">
+            <h2>➕ Daftar Pekerja Baru</h2>
+            <label for="nama">Nama Penuh</label>
+            <input type="text" id="nama" placeholder="Contoh: Ahmad bin Ali">
+            
+            <label for="gaji">Gaji Asas (RM)</label>
+            <input type="number" id="gaji" placeholder="Contoh: 3000">
+            
+            <button onclick="tambahPekerja()">Tambah Pekerja</button>
+        </div>
+        
+        <!-- Borang Payroll Bulanan -->
+        <div class="form-group">
+            <h2>📅 Payroll Bulanan</h2>
+            <label for="bulan">Bulan</label>
+            <select id="bulan">
+                <option value="Januari">Januari</option>
+                <option value="Februari">Februari</option>
+                <!-- ... bulan lain ... -->
+            </select>
+            
+            <label for="tahun">Tahun</label>
+            <input type="number" id="tahun" placeholder="2025" min="2020" max="2100">
+        </div>
+        
+        <!-- Jadual Senarai Pekerja -->
+        <table id="tablePayroll">
+            <thead>
+                <tr>
+                    <th>Nama</th>
+                    <th>Gaji Asas (RM)</th>
+                    <th>Hari Cuti Tanpa Gaji</th>
+                    <th>Lebih Masa (jam)</th>
+                    <th>EPF (11%)</th>
+                    <th>SOCSO (0.5%)</th>
+                    <th>Gaji Bersih (RM)</th>
+                    <th>Tindakan</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Data akan diisi oleh JavaScript -->
+            </tbody>
+        </table>
     </div>
-    <div class="card">
-      <h3>Business</h3>
-      <p>$59/month</p>
-      <p>For growing companies with teams</p>
+    
+    <!-- Modal Slip Gaji -->
+    <div class="overlay" id="overlay"></div>
+    <div class="slip-gaji" id="slipGaji">
+        <span class="close-btn" onclick="tutupSlip()">&times;</span>
+        <h3>SLIP GAJI - <span id="slipBulan"></span> <span id="slipTahun"></span></h3>
+        <div id="slipContent">
+            <!-- Kandungan slip gaji akan diisi oleh JavaScript -->
+        </div>
+        <button onclick="window.print()">Cetak Slip</button>
     </div>
-  </section>
-
-  <!-- Contact Section -->
-  <section id="contact" class="contact">
-    <h2>Contact Us</h2>
-    <p>Email us at: <a href="mailto:paylogicglobal@gmail.com">paylogicglobal@gmail.com</a></p>
-  </section>
-
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2025 PayLogicGlobal. All rights reserved.</p>
-  </footer>
-
+    
+    <script>
+        let pekerja = [];
+        let bulan = document.getElementById('bulan').value;
+        let tahun = document.getElementById('tahun').value;
+        
+        // Dapatkan bulan dan tahun semasa
+        document.getElementById('bulan').addEventListener('change', function() {
+            bulan = this.value;
+        });
+        document.getElementById('tahun').addEventListener('input', function() {
+            tahun = this.value;
+        });
+        
+        function tambahPekerja() {
+            const nama = document.getElementById('nama').value;
+            const gaji = parseFloat(document.getElementById('gaji').value);
+            
+            if (!nama || isNaN(gaji)) {
+                alert('Sila isi semua maklumat pekerja!');
+                return;
+            }
+            
+            pekerja.push({
+                id: Date.now(), // ID unik
+                nama,
+                gaji,
+                cuti: 0,
+                lebihMasa: 0
+            });
+            
+            updatePayroll();
+            // Reset borang
+            document.getElementById('nama').value = '';
+            document.getElementById('gaji').value = '';
+        }
+        
+        function updatePayroll() {
+            const table = document.querySelector('#tablePayroll tbody');
+            table.innerHTML = '';
+            
+            pekerja.forEach(p => {
+                // Kira gaji harian
+                const gajiHarian = p.gaji / 26; // 26 hari bekerja sebulan
+                
+                // Kira potongan cuti
+                const potonganCuti = p.cuti * gajiHarian;
+                
+                // Kira lebih masa (contoh: 1.5 kali gaji sejam)
+                const gajiSejam = p.gaji / (26 * 8); // 8 jam sehari
+                const bayaranLebihMasa = p.lebihMasa * gajiSejam * 1.5;
+                
+                // Kira potongan wajib
+                const epf = p.gaji * 0.11; // 11% EPF
+                const socso = p.gaji * 0.005; // 0.5% SOCSO (kadar contoh)
+                
+                // Kira gaji bersih
+                const gajiBersih = p.gaji - epf - socso - potonganCuti + bayaranLebihMasa;
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${p.nama}</td>
+                    <td>${p.gaji.toFixed(2)}</td>
+                    <td><input type="number" min="0" value="${p.cuti}" onchange="kemaskiniCuti(${p.id}, this.value)"></td>
+                    <td><input type="number" min="0" value="${p.lebihMasa}" onchange="kemaskiniLebihMasa(${p.id}, this.value)"></td>
+                    <td>${epf.toFixed(2)}</td>
+                    <td>${socso.toFixed(2)}</td>
+                    <td>${gajiBersih.toFixed(2)}</td>
+                    <td><button onclick="janaSlip(${p.id})">Jana Slip</button></td>
+                `;
+                table.appendChild(row);
+            });
+        }
+        
+        function kemaskiniCuti(id, nilai) {
+            const pekerjaIndex = pekerja.findIndex(p => p.id === id);
+            if (pekerjaIndex !== -1) {
+                pekerja[pekerjaIndex].cuti = parseInt(nilai) || 0;
+                updatePayroll();
+            }
+        }
+        
+        function kemaskiniLebihMasa(id, nilai) {
+            const pekerjaIndex = pekerja.findIndex(p => p.id === id);
+            if (pekerjaIndex !== -1) {
+                pekerja[pekerjaIndex].lebihMasa = parseInt(nilai) || 0;
+                updatePayroll();
+            }
+        }
+        
+        function janaSlip(id) {
+            const p = pekerja.find(pe => pe.id === id);
+            if (!p) return;
+            
+            // Kira semula untuk slip
+            const gajiHarian = p.gaji / 26;
+            const potonganCuti = p.cuti * gajiHarian;
+            const gajiSejam = p.gaji / (26 * 8);
+            const bayaranLebihMasa = p.lebihMasa * gajiSejam * 1.5;
+            const epf = p.gaji * 0.11;
+            const socso = p.gaji * 0.005;
+            const gajiBersih = p.gaji - epf - socso - potonganCuti + bayaranLebihMasa;
+            
+            // Isi maklumat slip
+            document.getElementById('slipBulan').textContent = bulan;
+            document.getElementById('slipTahun').textContent = tahun;
+            
+            const slipContent = document.getElementById('slipContent');
+            slipContent.innerHTML = `
+                <p><strong>Nama:</strong> ${p.nama}</p>
+                <p><strong>Bulan:</strong> ${bulan} ${tahun}</p>
+                <hr>
+                <p><strong>Gaji Asas:</strong> RM${p.gaji.toFixed(2)}</p>
+                <p><strong>Lebih Masa (${p.lebihMasa} jam):</strong> RM${bayaranLebihMasa.toFixed(2)}</p>
+                <p><strong>Potongan Cuti (${p.cuti} hari):</strong> -RM${potonganCuti.toFixed(2)}</p>
+                <hr>
+                <p><strong>EPF (11%):</strong> -RM${epf.toFixed(2)}</p>
+                <p><strong>SOCSO (0.5%):</strong> -RM${socso.toFixed(2)}</p>
+                <hr>
+                <h3>GAJI BERSIH: RM${gajiBersih.toFixed(2)}</h3>
+            `;
+            
+            // Tunjukkan slip
+            document.getElementById('overlay').classList.add('active');
+            document.getElementById('slipGaji').classList.add('active');
+        }
+        
+        function tutupSlip() {
+            document.getElementById('overlay').classList.remove('active');
+            document.getElementById('slipGaji').classList.remove('active');
+        }
+    </script>
 </body>
 </html>
