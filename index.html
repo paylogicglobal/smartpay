@@ -8,44 +8,49 @@
 </head>
 <body>
   <header class="hero">
-    <h1>PayLogicGlobal</h1>
-    <p>Your smart & international payroll solution.</p>
-    <a href="#contact" class="btn">Request Demo</a>
+    <div class="lang-switch">
+      <button onclick="setLanguage('en')">🇬🇧 English</button>
+      <button onclick="setLanguage('bm')">🇲🇾 BM</button>
+    </div>
+    <h1 id="title">PayLogicGlobal</h1>
+    <p id="subtitle">Your smart & international payroll solution.</p>
+    <a href="#contact" class="btn" id="demoBtn">Request Demo</a>
   </header>
 
   <section class="features">
-    <h2>Powerful Features</h2>
+    <h2 id="featuresTitle">Powerful Features</h2>
     <ul>
-      <li>✅ Auto OT & public holiday calculation</li>
-      <li>✅ PDF Payslip with company logo</li>
-      <li>✅ Google Sheets Integration</li>
-      <li>✅ White-label & multilingual</li>
-      <li>✅ AI Assistant (LYRA) built-in</li>
+      <li id="f1">✅ Auto OT & public holiday calculation</li>
+      <li id="f2">✅ PDF Payslip with company logo</li>
+      <li id="f3">✅ Google Sheets Integration</li>
+      <li id="f4">✅ White-label & multilingual</li>
+      <li id="f5">✅ AI Assistant (LYRA) built-in</li>
     </ul>
   </section>
 
   <section class="pricing">
-    <h2>Plans & Pricing</h2>
+    <h2 id="pricingTitle">Plans & Pricing</h2>
     <div class="card">
-      <h3>Starter</h3>
+      <h3 id="starter">Starter</h3>
       <p>$29/month</p>
-      <p>For small teams</p>
+      <p id="starterDesc">For small teams</p>
     </div>
     <div class="card">
-      <h3>Business</h3>
+      <h3 id="business">Business</h3>
       <p>$59/month</p>
-      <p>For growing companies</p>
+      <p id="businessDesc">For growing companies</p>
     </div>
   </section>
 
   <section id="contact" class="contact">
-    <h2>Contact Us</h2>
+    <h2 id="contactTitle">Contact Us</h2>
     <p>Email: <a href="mailto:paylogicglobal@gmail.com">paylogicglobal@gmail.com</a></p>
-    <p><a href="https://wa.me/60123456789" target="_blank">📲 Chat on WhatsApp</a></p>
   </section>
 
   <footer>
     <p>&copy; 2025 PayLogicGlobal. All rights reserved.</p>
   </footer>
+
+  <script src="lang.js"></script>
 </body>
 </html>
